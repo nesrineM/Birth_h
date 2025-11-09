@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>رسالة حب تفاعلية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#fdeef4;
+      --card:#fff;
+      --accent:#d63f70;
+      --muted:#8b8b98;
+      --radius:18px;
+      --pad:22px;
+      font-family: 'Cairo', sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,var(--bg),#fff);display:flex;align-items:flex-start;justify-content:center;padding:32px 16px;}
+    .container{max-width:760px;width:100%}
+    header{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:18px}
+    .heart{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;border:2px solid rgba(214,63,112,0.15);}
+    .heart svg{fill:none;stroke:var(--accent);stroke-width:2.5px}
+    h1{font-family:'Great Vibes',cursive;color:var(--accent);font-size:40px;margin:0}
+    p.subtitle{margin:0;color:var(--muted);font-size:15px}
+    .photo-card{background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:0 8px 30px rgba(214,63,112,0.06);display:flex;flex-direction:column;gap:12px}
+    .photo-wrapper{width:100%;border-radius:12px;overflow:hidden;height:420px;background:#111;display:grid;place-items:center}
+    .photo-wrapper img{width:100%;height:100%;object-fit:cover;display:block}
+    .dots{display:flex;gap:8px;justify-content:center}
+    .dot{width:10px;height:10px;border-radius:50%;background:rgba(139,139,152,0.25)}
+    .dot.active{background:var(--accent);transform:scale(1.15)}
+    .message{margin-top:20px;background:var(--card);border-radius:16px;padding:26px;box-shadow:0 12px 50px rgba(0,0,0,0.05);color:#333}
+    .message .heart-line{display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:8px}
+    .message p{line-height:1.8;color:var(--muted);margin:10px 0}
+    .message .sign{margin-top:14px;text-align:center;color:var(--accent);font-weight:700}
+    .actions{display:flex;gap:10px;justify-content:center;margin-top:18px}
+    button{background:transparent;border:2px solid var(--accent);color:var(--accent);padding:10px 16px;border-radius:12px;cursor:pointer;font-weight:600}
+    button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .hidden {display:none}
+    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+    @media (max-width:520px){
+      .photo-wrapper{height:300px}
+      h1{font-size:34px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="heart" aria-hidden>
+        <svg viewBox="0 0 24 24"><path d="M12 20s-6.5-4.35-9-7.1C-1 7 4 3.6 7.6 6.8 9.1 8 12 11 12 11s2.9-3 4.4-4.2C20 3.6 25 7 21 12.9 18.5 15.65 12 20 12 20z"/></svg>
+      </div>
+      <h1>Happy birthday</h1>
+      <p class="subtitle">إلى حبيبي العزيز — رسالة من قلبي</p>
+    </header>
+    <div class="photo-card">
+      <div class="photo-wrapper" id="photoWrapper">
+        <img id="mainPhoto" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1400&auto=format&fit=crop&s=placeholder" alt="صورة">
+      </div>
+      <div class="dots" id="dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div class="message" id="messageCard">
+        <div class="heart-line"><svg width="28" height="28" viewBox="0 0 24 24"><path d="M12 20s-6.5-4.35-9-7.1C-1 7 4 3.6 7.6 6.8 9.1 8 12 11 12 11s2.9-3 4.4-4.2C20 3.6 25 7 21 12.9 18.5 15.65 12 20 12 20z" fill="none" stroke="var(--accent)" stroke-width="1.8"/></svg></div>
+        <p id="intro">حبيبي الغالي، منذ أن دخلت حياتي وكل يوم أصبح له طعم خاص بوجودك. هذه الصفحه الصغيرة مليئة بالذكريات والكلمات التي أريد أن أقولها لك.</p>
+        <p id="bodyText">أنت أول ما أفكر به عند الصباح وآخر ما يمر بخاطري قبل أن أغفو. شكراً لكل لحظة، لكل ضحكة، ولكل كلمة قلتها لي. بعد المسافة لم تنقص شيئاً من حبي، بل زادته اشتياق.</p>
+        <div id="extra" class="hidden">
+          <p>المفاجأة: سأزورك قريباً — انتظر مفاجأة أكبر 🎁</p>
+        </div>
+        <div class="sign">مع كل حبي، حبيبتك ❤️</div>
+        <div class="actions">
+          <button id="revealBtn" class="primary">اضغط للمفاجأة</button>
+          <button id="playBtn">تشغيل أغنية</button>
+        </div>
+      </div>
+    </div>
+    <footer>مرر للمزيد أو اضغط على النقاط للتنقّل بين الصور</footer>
+  </div>
+  <audio id="bgAudio" src="" preload="none"></audio>
+  <script>
+    const photos = [
+      'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1400&auto=format&fit=crop&s=placeholder',
+      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1400&auto=format&fit=crop&s=placeholder',
+      'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1400&auto=format&fit=crop&s=placeholder',
+      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1400&auto=format&fit=crop&s=placeholder'
+    ];
+    const mainPhoto = document.getElementById('mainPhoto');
+    const dots = Array.from(document.querySelectorAll('.dot'));
+    dots.forEach((d,i)=>{
+      d.addEventListener('click', ()=> setActive(i));
+    });
+    function setActive(i){
+      dots.forEach(x=>x.classList.remove('active'));
+      dots[i].classList.add('active');
+      mainPhoto.src = photos[i];
+    }
+    const revealBtn = document.getElementById('revealBtn');
+    const extra = document.getElementById('extra');
+    revealBtn.addEventListener('click', ()=>{
+      extra.classList.toggle('hidden');
+      revealBtn.textContent = extra.classList.contains('hidden')? 'اضغط للمفاجأة' : 'أخفِ المفاجأة';
+    });
+    const playBtn = document.getElementById('playBtn');
+    const bgAudio = document.getElementById('bgAudio');
+    playBtn.addEventListener('click', async ()=>{
+      if(!bgAudio.src){ bgAudio.src = ''; }
+      try{
+        if(bgAudio.paused){ await bgAudio.play(); playBtn.textContent='إيقاف الأغنية'; }
+        else{ bgAudio.pause(); playBtn.textContent='تشغيل أغنية'; }
+      }catch(e){ alert('لتشغيل الصوت، من فضلك اضغط مرة أخرى.'); }
+    });
+    let idx = 0;
+    setInterval(()=>{ idx=(idx+1)%photos.length; setActive(idx); },6000);
+  </script>
+</body>
+</html>
