@@ -26,16 +26,14 @@
     .photo-card{background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:0 8px 30px rgba(214,63,112,0.06);display:flex;flex-direction:column;gap:12px}
     .photo-wrapper{width:100%;border-radius:12px;overflow:hidden;height:420px;background:#111;display:grid;place-items:center}
     .photo-wrapper img{width:100%;height:100%;object-fit:cover;display:block}
-    .dots{display:flex;gap:8px;justify-content:auto}
-    .dot{width:10px;height:10px;border-radius:50%;background:rgba(139,139,152,0.25)}
+    .dots{display:flex;gap:8px;justify-content:center}
+    .dot{width:50px;height:50px;border-radius:50%;background:rgba(139,139,152,0.25)}
     .dot.active{background:var(--accent);transform:scale(1.15)}
     .message{margin-top:20px;background:var(--card);border-radius:16px;padding:26px;box-shadow:0 12px 50px rgba(0,0,0,0.05);color:#333}
     .message .heart-line{display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:8px}
     .message p{line-height:1.8;color:var(--muted);margin:10px 0}
     .message .sign{margin-top:14px;text-align:center;color:var(--accent);font-weight:700}
     .actions{display:flex;gap:10px;justify-content:center;margin-top:18px}
-    button{background:transparent;border:2px solid var(--accent);color:var(--accent);padding:10px 16px;border-radius:12px;cursor:pointer;font-weight:600}
-    button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
     .hidden {display:none}
     footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
     @media (max-width:520px){
@@ -72,25 +70,16 @@ I appreciate you more than you will ever know. No words are amazing enough to de
 You're the first and the last thing on my mind each and every day.
 I just love you too much!.</p>
         <p id="bodyText">أنت أول ما أفكر به عند الصباح وآخر ما يمر بخاطري قبل أن أغفو. شكراً لكل لحظة، لكل ضحكة، ولكل كلمة قلتها لي. بعد المسافة لم تنقص شيئاً من حبي، بل زادته اشتياق.</p>
-        <div id="extra" class="hidden">
-          <p>المفاجأة: سأزورك قريباً — انتظر مفاجأة أكبر 🎁</p>
-        </div>
-        <div class="sign">مع كل حبي، خاضعتك ❤️</div>
-        <div class="actions">
-          <button id="revealBtn" class="primary">اضغط للمفاجأة</button>
-          <button id="playBtn">تشغيل أغنية</button>
-        </div>
       </div>
     </div>
     <footer>مرر للمزيد أو اضغط على النقاط للتنقّل بين الصور</footer>
   </div>
-  <audio id="bgAudio" src="https://open.spotify.com/track/3zHq9ouUJQFQRf3cm1rRLu?si=NeShZqrGRmKPr0GZfU3UlQ" preload="none"></audio>
   <script>
     const photos = [
       'https://cdn.quotesgram.com/img/74/90/431115028-9aa61bae598069686fe3e94dd09802e0.jpg',
       'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirqLwkwY3d0v264wI_Gp7TVLPmwYRi2qHJnegXANsn8LbELs_cBRJ-pZS5UPUrDNWr83uanwAi3eIL52yfGCDWlXzv-rXBAc8MVCq7Vn_xXmZbnebe6dm4Dw1bkDPu5TgwJDhnLukFp8c/s1600/7t2qVGcR.jpg',
       'https://static.wixstatic.com/media/3ae6d6_b5a080e5e18d48658407eab122268e1f~mv2.jpg',
-      'https://share.google/civeMz3SnTHHtjx6j'
+      'https://blogger32928463.wordpress.com/wp-content/uploads/2020/04/dom-sub.jpg'
     ];
     const mainPhoto = document.getElementById('mainPhoto');
     const dots = Array.from(document.querySelectorAll('.dot'));
@@ -102,21 +91,6 @@ I just love you too much!.</p>
       dots[i].classList.add('active');
       mainPhoto.src = photos[i];
     }
-    const revealBtn = document.getElementById('revealBtn');
-    const extra = document.getElementById('extra');
-    revealBtn.addEventListener('click', ()=>{
-      extra.classList.toggle('hidden');
-      revealBtn.textContent = extra.classList.contains('hidden')? 'اضغط للمفاجأة' : 'أخفِ المفاجأة';
-    });
-    const playBtn = document.getElementById('playBtn');
-    const bgAudio = document.getElementById('bgAudio');
-    playBtn.addEventListener('click', async ()=>{
-      if(!bgAudio.src){ bgAudio.src = ' https://open.spotify.com/track/3zHq9ouUJQFQRf3cm1rRLu?si=NeShZqrGRmKPr0GZfU3UlQ'; }
-      try{
-        if(bgAudio.paused){ await bgAudio.play(); playBtn.textContent='إيقاف الأغنية'; }
-        else{ bgAudio.pause(); playBtn.textContent='تشغيل أغنية'; }
-      }catch(e){ alert('لتشغيل الصوت، من فضلك اضغط مرة أخرى.'); }
-    });
     let idx = 0;
     setInterval(()=>{ idx=(idx+1)%photos.length; setActive(idx); },6000);
   </script>
