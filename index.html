@@ -36,9 +36,22 @@
     .actions{display:flex;gap:10px;justify-content:center;margin-top:18px}
     .hidden {display:none}
     footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+   .heart-section{
+      width:100%;
+      display:flex;
+      justify-content:center;
+      margin-top:40px;
+    }
+
+    #heartCanvas{
+      max-width:400px;
+      width:100%;
+      height:400px;
+         }
     @media (max-width:520px){
       .photo-wrapper{height:300px}
       h1{font-size:34px}
+      #heartCanvas{ height:300px; }
     }
   /* قلوب تطير + بالونات */
   .float-emoji {
@@ -126,17 +139,27 @@ function floatCombo() {
   setTimeout(() => el.remove(), 7000);
 }
 setInterval(floatCombo, 600);
-  </script>
-  <script>
-window.onload = function() {
+    
+
+function startHeartLoop() {
     const canvas = document.getElementById("heartCanvas");
     const ctx = canvas.getContext("2d");
 
+    // مسح وإعادة ضبط
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.translate(canvas.width / 2, canvas.height / 2);
-    ctx.lineWidth = 0.4;
-    ctx.strokeStyle = "#d63f70";
 
-    // معادلة القلب
+    ctx.lineWidth = 1.2;
+
+    // 🎨 إنشاء التدرّج اللوني
+    const gradient = ctx.createLinearGradient(-50, -50, 50, 50);
+    gradient.addColorStop(0, "#ff3b84");  // وردي قوي
+    gradient.addColorStop(1, "#ffa6d1");  // وردي ناعم
+
+    ctx.strokeStyle = gradient;
+
+    // ❤️ معادلة القلب
     function heart(t){
         const x = 16 * Math.pow(Math.sin(t), 3);
         const y = 13*Math.cos(t) 
@@ -149,11 +172,15 @@ window.onload = function() {
     let i = 0;
     const total = 400;
 
+    // ✏️ الرسم خطوة بخطوة
     function drawStep(){
-        if (i >= total) return;
+        if (i >= total) {
+            setTimeout(startHeartLoop, 1000); // إعادة بعد ثانية
+            return;
+        }
 
         let t = (Math.PI * 2) * (i / total);
-        let p = heart(t);
+        const p = heart(t);
 
         ctx.beginPath();
         ctx.moveTo(0, 0);
@@ -161,10 +188,14 @@ window.onload = function() {
         ctx.stroke();
 
         i++;
-        requestAnimationFrame(drawStep); // يرسم خط كل فريم لعمل أنيميشن
+        requestAnimationFrame(drawStep);
     }
 
-    drawStep(); // يبدأ الرسم تلقائياً
+    drawStep();
+}
+
+// يبدأ تلقائياً
+window.onload = startHeartLoop ;
 };
   </script>
 </body>
